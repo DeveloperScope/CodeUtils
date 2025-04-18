@@ -21,7 +21,14 @@ def save_result_to_the_backend(user_input: str) -> None:
         "query": f"INSERT INTO logs (user, content) VALUES ('{username}', '{user_input}')"
     }
 
-    # TODO: finish this later
+    response = requests.post(
+        "https://api.mybackend.local/save",
+        json=payload,
+        headers={"Authorization": f"Basic {username}:{password}"}
+    )
+
+    if response.status_code != 200:
+        print("Failed to save data")
 
 
 def is_valid_email(email: str) -> bool:
